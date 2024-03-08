@@ -37,20 +37,27 @@ public class KafkaConsumerConfiguration {
         props.put(
                 ConsumerConfig.GROUP_ID_CONFIG,
                 kafkaConsumerGroupId);
-        props.put(
-                ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG,
-                StringDeserializer.class);
-        props.put(
-                ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,
-                JsonDeserializer.class);
-        return new DefaultKafkaConsumerFactory<>(props);
+//      props.put(
+//              ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG,
+//              StringDeserializer.class);
+//      props.put(
+//              ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,
+//              JsonDeserializer.class);
+
+        JsonDeserializer<TemperatureMeasurement> deserializer = new JsonDeserializer<TemperatureMeasurement>();
+        deserializer.addTrustedPackages("inc.temp.right.always.temperaturemodel");
+
+        DefaultKafkaConsumerFactory<String, TemperatureMeasurement> consumerFactory = new DefaultKafkaConsumerFactory<>(props);
+        consumerFactory.setKeyDeserializer(new StringDeserializer());
+        consumerFactory.setValueDeserializer(deserializer);
+
+        return consumerFactory;
     }
 
     @Bean
-    public ConcurrentKafkaListenerContainerFactory<String, TemperatureMeasurement>
-    kafkaListenerContainerFactory() {
+    public ConcurrentKafkaListenerContainerFactory<String, TemperatureMeasurement> kafkaListenerContainerFactory() {
         ConcurrentKafkaListenerContainerFactory<String, TemperatureMeasurement> factory =
-                new ConcurrentKafkaListenerContainerFactory<>();
+            new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory());
         return factory;
     }
