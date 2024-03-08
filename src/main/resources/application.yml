@@ -1,0 +1,11 @@
+main:
+  config:
+    kafka:
+      topic: anomalies
+      offsets: earliest
+      consumerGroupId: consumer-cassandra-1
+      bootstrapAddress: 172.18.0.1:32772
+    cassandra:
+      keyspace-name: temperature
+      port: 9042
+      contact-point: 172.17.0.3
