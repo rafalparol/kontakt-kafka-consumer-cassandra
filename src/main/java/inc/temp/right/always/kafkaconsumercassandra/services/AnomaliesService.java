@@ -54,4 +54,20 @@ public class AnomaliesService {
     public AnomalyByTime saveWithOptions(AnomalyByTime anomalyByTime) {
         return cassandraTemplate.insert(anomalyByTime, insertOptions).getEntity();
     }
+
+    public void setAnomalyByRoomRepository(AnomalyByRoomRepository anomalyByRoomRepository) {
+        this.anomalyByRoomRepository = anomalyByRoomRepository;
+    }
+
+    public void setAnomalyByThermometerRepository(AnomalyByThermometerRepository anomalyByThermometerRepository) {
+        this.anomalyByThermometerRepository = anomalyByThermometerRepository;
+    }
+
+    public void setAnomalyByTimeRepository(AnomalyByTimeRepository anomalyByTimeRepository) {
+        this.anomalyByTimeRepository = anomalyByTimeRepository;
+    }
+
+    public void setCassandraTemplate(CassandraTemplate cassandraTemplate) {
+        this.cassandraTemplate = cassandraTemplate;
+    }
 }

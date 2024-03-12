@@ -21,4 +21,8 @@ public class KafkaConsumerListener {
         anomaliesService.saveWithOptions(temperatureMeasurement.toAnomalyByThermometer());
         anomaliesService.saveWithOptions(temperatureMeasurement.toAnomalyByTime());
     }
+
+    public void setAnomaliesService(AnomaliesService anomaliesService) {
+        this.anomaliesService = anomaliesService;
+    }
 }
